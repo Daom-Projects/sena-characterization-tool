@@ -1,6 +1,6 @@
 {
   "kolb": {
-    "title": "Identificación de Estilos de Aprendizaje - Modelo Kolb (SENA 2026)",
+    "title": "Identificación de Estilos de Aprendizaje - Modelo Kolb",
     "instructions": "Para cada fila, ordene las opciones del 1 al 4. Asigne 4 a la opción que MEJOR lo describe y 1 a la que MENOS lo describe. No repita números en la misma fila.",
     "validation": {
       "type": "ranking_row",
@@ -251,7 +251,7 @@
     ]
   },
   "chaea": {
-    "title": "Cuestionario CHAEA (SENA 2026)",
+    "title": "Cuestionario CHAEA",
     "instructions": "Lea atentamente cada frase. Si está más de acuerdo que en desacuerdo, marque 'De acuerdo'. Si está más en desacuerdo que de acuerdo, marque 'En desacuerdo'.",
     "block": 4,
     "response_options": [
@@ -696,7 +696,7 @@
     ]
   },
   "vak": {
-    "title": "Test de Percepción Sensorial VAK (SENA 2026)",
+    "title": "Test de Percepción Sensorial VAK",
     "description": "Identifica tu canal sensorial predominante para optimizar tu proceso de formación profesional integral.",
     "instructions": "Para cada situación, elige la opción que mejor te represente. No hay respuestas correctas o incorrectas.",
     "response_options": {
