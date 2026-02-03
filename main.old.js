@@ -163,6 +163,9 @@ const App = {
                 this.calculateResults();
                 app.innerHTML = this.views.results();
                 break;
+            case 'guide':
+                app.innerHTML = this.views.guide();
+                break;
             default: app.innerHTML = this.views.welcome();
         }
 
@@ -307,24 +310,63 @@ const App = {
     },
 
     hydrateResultsFromServer(data) {
+        // 1. Restore scores
         this.state.scores = {
             kolb: {
-                profile: { name: data.Resultado_Kolb, description: "Recuperado de bdd" },
-                x: data.Kolb_X,
-                y: data.Kolb_Y
+                profile: { name: "Calculando...", description: "" },
+                x: Number(data.Kolb_X),
+                y: Number(data.Kolb_Y)
             },
             chaea: {
-                Activo: data.CHAEA_Activo,
-                Reflexivo: data.CHAEA_Reflexivo,
-                Teórico: data.CHAEA_Teorico,
-                Pragmático: data.CHAEA_Pragmatico
+                Activo: Number(data.CHAEA_Activo),
+                Reflexivo: Number(data.CHAEA_Reflexivo),
+                Teórico: Number(data.CHAEA_Teorico),
+                Pragmático: Number(data.CHAEA_Pragmatico)
             },
             vak: {
-                Visual: data.VAK_Visual,
-                Auditivo: data.VAK_Auditivo,
-                Kinestesico: data.VAK_Kinestesico
+                Visual: Number(data.VAK_Visual),
+                Auditivo: Number(data.VAK_Auditivo),
+                Kinestesico: Number(data.VAK_Kinestesico)
             }
         };
+
+        // 2. Re-run calculation logic to derive Profiles & Descriptions
+        // KOLB
+        const kX = this.state.scores.kolb.x;
+        const kY = this.state.scores.kolb.y;
+        let kName = "Indeterminado";
+        let kDesc = "";
+
+        if (kX >= 3 && kY <= 2) {
+            kName = "Asimilador";
+            kDesc = "Estrategias DUA: Clases magistrales, lectura de textos, gráficos y modelos teóricos. Fomentar la investigación.";
+        } else if (kX >= 3 && kY >= 3) {
+            kName = "Convergente";
+            kDesc = "Estrategias DUA: Proyectos prácticos, estudios de caso, simulaciones y resolución de problemas técnicos.";
+        } else if (kX <= 2 && kY <= 2) {
+            kName = "Divergente";
+            kDesc = "Estrategias DUA: Lluvia de ideas, trabajo en grupo, juegos de rol y exploración creativa.";
+        } else if (kX <= 2 && kY >= 3) {
+            kName = "Acomodador";
+            kDesc = "Estrategias DUA: Trabajo de campo, experimentos, aprendizaje por descubrimiento y actividades desafiantes.";
+        }
+        this.state.scores.kolb.profile = { name: kName, description: kDesc };
+
+        // CHAEA Dominant
+        let maxC = -1;
+        let domC = "Indeterminado";
+        Object.entries(this.state.scores.chaea).forEach(([k, v]) => {
+            if (v > maxC) { maxC = v; domC = k; }
+        });
+        this.state.scores.chaea.profile = domC;
+
+        // VAK Dominant
+        let maxV = -1;
+        let domV = "Indeterminado";
+        Object.entries(this.state.scores.vak).forEach(([k, v]) => {
+            if (v > maxV) { maxV = v; domV = k; }
+        });
+        this.state.scores.vak.profile = domV;
     },
 
     // =========================================================================
@@ -363,22 +405,40 @@ const App = {
                         <h3 class="text-xl font-bold text-gray-800">Evaluación de Preferencias</h3>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+                    <div class="space-y-6 relative z-10">
             `;
+
+            // Header for Matrix
+            html += `
+                <div class="grid grid-cols-[1fr_repeat(4,minmax(40px,50px))] gap-4 mb-2 px-2">
+                    <span class="font-bold text-gray-400 text-xs uppercase tracking-widest self-end pb-2">Opciones</span>
+                    <div class="text-center font-bold text-gray-400 text-sm">1</div>
+                    <div class="text-center font-bold text-gray-400 text-sm">2</div>
+                    <div class="text-center font-bold text-gray-400 text-sm">3</div>
+                    <div class="text-center font-bold text-gray-400 text-sm">4</div>
+                </div>
+            `;
+
             q.options.forEach(opt => {
-                const currentVal = this.state.answers.kolb[q.id]?.[opt.style] || '';
+                const currentVal = this.state.answers.kolb[q.id]?.[opt.style];
+
                 html += `
-                    <div class="flex flex-col bg-gray-50 p-4 rounded-2xl border border-transparent hover:border-gray-200 transition-colors group/input focus-within:bg-white focus-within:shadow-md focus-within:border-sena-green/50">
-                        <label class="mb-3 text-sm font-medium text-gray-600 leading-snug min-h-[40px]" title="${opt.text}">${opt.text}</label>
-                        <div class="relative">
-                            <input type="number" min="1" max="4" 
-                                class="w-full text-center font-bold text-lg border-gray-200 bg-white rounded-xl focus:ring-2 focus:ring-sena-green focus:border-transparent py-3 shadow-sm transition-all"
-                                placeholder="-"
-                                data-qid="${q.id}" data-style="${opt.style}"
-                                value="${currentVal}"
-                                onchange="App.handleKolbInput(this)">
-                             <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-300 pointer-events-none font-bold">1-4</div>
-                        </div>
+                    <div class="grid grid-cols-[1fr_repeat(4,minmax(40px,50px))] gap-4 items-center bg-gray-50 p-4 rounded-xl border border-transparent hover:border-gray-200 transition-colors">
+                        <label class="text-sm font-medium text-gray-700 leading-snug cursor-help" title="${opt.text}">${opt.text}</label>
+                        
+                        ${[1, 2, 3, 4].map(num => {
+                    const isSelected = currentVal === num;
+                    const btnClass = isSelected
+                        ? 'bg-sena-green text-white shadow-lg scale-105 border-green-600 ring-2 ring-green-200'
+                        : 'bg-white text-gray-500 border-gray-200 hover:border-green-400 hover:text-green-600';
+
+                    return `
+                                <button onclick="App.handleKolbInput(${q.id}, '${opt.style}', ${num})" 
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-lg border font-bold text-lg flex items-center justify-center transition-all duration-200 ${btnClass}">
+                                    ${num}
+                                </button>
+                            `;
+                }).join('')}
                     </div>
                 `;
             });
@@ -399,13 +459,25 @@ const App = {
         this.dom.app.innerHTML = html;
     },
 
-    handleKolbInput(input) {
-        const qid = input.dataset.qid;
-        const style = input.dataset.style;
-        const val = parseInt(input.value);
+    handleKolbInput(qid, style, val) {
         if (!this.state.answers.kolb[qid]) this.state.answers.kolb[qid] = {};
+
+        // Logic: Enforce uniqueness. If another option in this row (qid) has this value, clear it.
+        const currentRow = this.state.answers.kolb[qid];
+
+        // Check if value is already used by another option
+        Object.keys(currentRow).forEach(s => {
+            if (currentRow[s] === val && s !== style) {
+                // Clear the other entry that had this value
+                delete currentRow[s];
+            }
+        });
+
+        // Set new value
         this.state.answers.kolb[qid][style] = val;
+
         this.saveState();
+        this.renderKolb(); // Re-render to show updates
     },
 
     renderChaea() {
@@ -624,9 +696,33 @@ const App = {
                 alert(`Por favor responda las preguntas del VAK: ${missing.join(', ')}`);
                 return;
             }
+
+            // Auto-save Trigger
+            this.finishAndSave();
+            return;
         }
 
         this.navigate(next);
+    },
+
+    async finishAndSave() {
+        this.calculateResults();
+        this.state.isSaving = true;
+        this.state.saveError = null;
+        this.navigate('results');
+
+        // Background save
+        try {
+            await this.saveToGoogleSheets();
+            this.state.isSaving = false;
+            this.state.isSaved = true;
+            this.render(); // Re-render to show success status
+        } catch (e) {
+            console.error("Auto-save failed", e);
+            this.state.isSaving = false;
+            this.state.saveError = true;
+            this.render(); // Re-render to show error
+        }
     },
 
     calculateResults() {
@@ -787,14 +883,14 @@ const App = {
                      
                      <div class="flex flex-col md:flex-row items-center gap-6">
                         <div class="w-24 h-24 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-3xl font-black shadow-lg">
-                            ${p.nombre.charAt(0)}${p.apellidos.charAt(0)}
+                            ${(p.nombre ? p.nombre.charAt(0) : 'I')}${(p.apellidos ? p.apellidos.charAt(0) : '')}
                         </div>
                         <div>
                             <h2 class="text-3xl font-black text-gray-900 leading-none mb-1">Resultados de Diagnóstico</h2>
-                             <p class="text-gray-500 text-lg">Aprendiz: <span class="font-bold text-gray-800">${p.nombre} ${p.apellidos}</span></p>
+                             <p class="text-gray-500 text-lg">Aprendiz: <span class="font-bold text-gray-800">${p.nombre || 'Invitado'} ${p.apellidos || ''}</span></p>
                              <div class="flex gap-3 mt-3 justify-center md:justify-start">
-                                <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm">ID: ${p.documento}</span>
-                                <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm">Ficha: ${p.ficha}</span>
+                                <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm">ID: ${p.documento || 'Provisorio'}</span>
+                                <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm">Ficha: ${p.ficha || 'Provisional'}</span>
                              </div>
                         </div>
                      </div>
@@ -881,32 +977,182 @@ const App = {
                 </div>
                 </div>
 
-                ${!App.state.isExistingUser ? `
-                <div class="text-center py-8">
-                    <button id="btnSave" onclick="App.saveToGoogleSheets()" class="group relative bg-gradient-to-r from-sena-green to-green-700 text-white font-bold py-5 px-12 rounded-full shadow-2xl shadow-green-500/40 hover:shadow-green-500/60 hover:scale-105 transition-all duration-300">
-                        <span class="relative z-10 flex items-center justify-center gap-3 text-lg">
-                            <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
-                            GUARDAR RESULTADOS
-                        </span>
-                        <div class="absolute inset-0 bg-white/20 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-                    </button>
-                    <div id="saveStatus" class="mt-6 text-center"></div>
+                <div class="space-y-6 text-center py-8">
+                    <!-- Status Banner -->
+                    <div id="saveStatus" class="transition-all duration-500">
+                        ${App.state.isSaving ? `
+                            <div class="inline-flex items-center gap-3 bg-blue-50 text-blue-700 px-6 py-3 rounded-full animate-pulse">
+                                <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 
+                                <span class="font-bold">Guardando resultados en la nube...</span>
+                            </div>
+                        ` : App.state.isSaved ? `
+                            <div class="inline-flex items-center gap-3 bg-green-50 text-green-700 px-6 py-3 rounded-full shadow-sm border border-green-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="font-bold">¡Resultados guardados correctamente!</span>
+                            </div>
+                        ` : App.state.saveError ? `
+                            <div class="inline-flex items-center gap-3 bg-red-50 text-red-700 px-6 py-3 rounded-full shadow-sm border border-red-100 cursor-pointer hover:bg-red-100" onclick="App.saveToGoogleSheets()">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="font-bold">Error al guardar. Clic para reintentar.</span>
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <!-- Pedagogical Guide Button -->
+                    <div class="mt-8">
+                        <button onclick="App.navigate('guide')" class="group relative bg-gradient-to-r from-gray-900 to-gray-700 text-white font-bold py-5 px-10 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                             <div class="flex items-center gap-4">
+                                <div class="bg-white/20 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-xs text-gray-300 uppercase tracking-wider font-semibold">Recurso Educativo</div>
+                                    <div class="text-lg leading-none">Ver Guía Pedagógica 2026</div>
+                                </div>
+                             </div>
+                        </button>
+                    </div>
                 </div>
-                ` : `
-                <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 text-center max-w-2xl mx-auto">
-                    <p class="text-blue-800 font-medium">✨ Estos resultados han sido recuperados exitosamente de la base de datos.</p>
-                </div>
-                `}
              </div>
              `;
-        }
+        },
+
+        guide: () => {
+            return `
+             <div class="max-w-6xl mx-auto py-10 animate-fade-in-up">
+                <div class="mb-12 text-center">
+                    <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Recurso Educativo 2026</span>
+                    <h2 class="text-4xl font-black text-gray-900 mt-4 leading-tight">Interpretación Pedagógica <br/><span class="text-sena-green">Modelo Integral SENA</span></h2>
+                    <p class="text-gray-500 max-w-3xl mx-auto mt-4 text-lg">Guía práctica para Instructores y Aprendices sobre los estilos de aprendizaje y su aplicación en la formación profesional.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <!-- KOLB Section -->
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-10 -mt-10 blur-xl"></div>
+                        <h3 class="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">1</span>
+                            Modelo David Kolb
+                        </h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Sitúa al aprendiz en dos ejes: <strong>Percepción</strong> (X) y <strong>Procesamiento</strong> (Y).</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                                <h4 class="font-bold text-blue-800 text-sm uppercase mb-1">Divergente (X≤2, Y≤2)</h4>
+                                <p class="text-sm text-gray-700">Imaginativo y empático. <strong>Estrategia:</strong> Lluvia de ideas y simulaciones.</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                                <h4 class="font-bold text-blue-800 text-sm uppercase mb-1">Asimilador (X≥3, Y≤2)</h4>
+                                <p class="text-sm text-gray-700">Lógico y teórico. <strong>Estrategia:</strong> Lecturas, debates e informes.</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                                <h4 class="font-bold text-blue-800 text-sm uppercase mb-1">Convergente (X≥3, Y≥3)</h4>
+                                <p class="text-sm text-gray-700">Práctico y técnico. <strong>Estrategia:</strong> Proyectos y resolución de problemas.</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                                <h4 class="font-bold text-blue-800 text-sm uppercase mb-1">Acomodador (X≤2, Y≥3)</h4>
+                                <p class="text-sm text-gray-700">Pragmático y líder. <strong>Estrategia:</strong> Trabajo de campo y experimentos.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHAEA Section -->
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden">
+                       <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full -mr-10 -mt-10 blur-xl"></div>
+                        <h3 class="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold">2</span>
+                            Cuestionario CHAEA
+                        </h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Define rasgos de comportamiento operativo. El perfil puede ser multimodal.</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-gray-50 hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-purple-100">
+                                <div class="font-bold text-purple-700 mb-1">Activo</div>
+                                <div class="text-xs text-gray-500">Busca desafíos y resultados inmediatos.</div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-gray-50 hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-purple-100">
+                                <div class="font-bold text-purple-700 mb-1">Reflexivo</div>
+                                <div class="text-xs text-gray-500">Analiza datos antes de actuar.</div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-gray-50 hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-purple-100">
+                                <div class="font-bold text-purple-700 mb-1">Teórico</div>
+                                <div class="text-xs text-gray-500">Integra hechos en estructuras lógicas.</div>
+                            </div>
+                             <div class="p-4 rounded-xl bg-gray-50 hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-purple-100">
+                                <div class="font-bold text-purple-700 mb-1">Pragmático</div>
+                                <div class="text-xs text-gray-500">Aplicación real y directa.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VAK & ROLE 2026 -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                     <div class="lg:col-span-1 bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden">
+                        <h3 class="text-xl font-black text-gray-900 mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold">3</span>
+                            Canales VAK
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">👁️</span>
+                                <div><strong class="text-gray-800">Visual (65%)</strong><p class="text-xs text-gray-500">Imágenes, mapas mentales, videos.</p></div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">👂</span>
+                                <div><strong class="text-gray-800">Auditivo (30%)</strong><p class="text-xs text-gray-500">Debates, podcasts, lectura oral.</p></div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">🤚</span>
+                                <div><strong class="text-gray-800">Kinestésico (5%)</strong><p class="text-xs text-gray-500">Aprender haciendo, talleres.</p></div>
+                            </li>
+                        </ul>
+                     </div>
+
+                     <div class="lg:col-span-2 bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                        <h3 class="text-2xl font-black mb-6">El Rol del Instructor 2026</h3>
+                        <p class="text-gray-300 mb-6 leading-relaxed">Bajo la Reforma Laboral (Ley 2466) y el nuevo Reglamento, la caracterización es un derecho.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                                <div class="font-bold text-sena-green text-sm mb-2">Ajustes Razonables (PIAR)</div>
+                                <p class="text-xs text-gray-300">Diseñe planes específicos para aprendices con discapacidad o vulnerabilidad.</p>
+                            </div>
+                             <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                                <div class="font-bold text-sena-green text-sm mb-2">Laboralización</div>
+                                <p class="text-xs text-gray-300">Oriente hacia la modalidad productiva idónea (Pasantía, Contrato, etc).</p>
+                            </div>
+                             <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                                <div class="font-bold text-sena-green text-sm mb-2">Diseño Universal (DUA)</div>
+                                <p class="text-xs text-gray-300">No use etiquetas fijas. Diseñe con múltiples formas de implicación y acción.</p>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+
+                <div class="text-center">
+                    ${(App.state.isExistingUser || App.state.isSaved)
+                    ? `<button onclick="App.navigate('results')" class="bg-white text-gray-800 font-bold py-4 px-12 rounded-full shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            &larr; Volver a Mis Resultados
+                           </button>`
+                    : `<button onclick="App.navigate('welcome')" class="bg-sena-green text-white font-bold py-4 px-12 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            &larr; Volver al Inicio
+                           </button>`
+                }
+                </div>
+             </div>
+             `;
+        },
     },
 
     async saveToGoogleSheets() {
         const btn = document.getElementById('btnSave');
         const st = document.getElementById('saveStatus');
-        btn.disabled = true;
-        btn.innerHTML = `<span class="flex items-center gap-2"><svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> GUARDANDO...</span>`;
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = `<span class="flex items-center gap-2"><svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> GUARDANDO...</span>`;
+        }
 
         const payload = {
             action: 'save',
@@ -932,17 +1178,23 @@ const App = {
                 body: JSON.stringify(payload)
             });
 
-            st.innerHTML = '<div class="text-green-800 font-bold bg-green-100 border border-green-200 p-4 rounded-xl flex items-center justify-center gap-2 animate-bounce-small">✅ ¡Datos guardados y correo enviado!</div>';
-            btn.innerHTML = 'DATOS REGISTRADOS';
-            btn.classList.remove('bg-gradient-to-r', 'from-sena-green', 'to-green-700');
-            btn.classList.add('bg-gray-400', 'cursor-not-allowed');
+            if (st) st.innerHTML = '<div class="text-green-800 font-bold bg-green-100 border border-green-200 p-4 rounded-xl flex items-center justify-center gap-2 animate-bounce-small">✅ ¡Datos guardados y correo enviado!</div>';
+
+            if (btn) {
+                btn.innerHTML = 'DATOS REGISTRADOS';
+                btn.classList.remove('bg-gradient-to-r', 'from-sena-green', 'to-green-700');
+                btn.classList.add('bg-gray-400', 'cursor-not-allowed');
+            }
         } catch (e) {
             console.error(e);
             // Simulate success for local dev
-            st.innerHTML = `<div class="text-yellow-700 bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm mt-2"><b>Modo Offline:</b> Datos guardados localmente (Simulación). En producción se enviaría al servidor.</div>`;
-            btn.innerHTML = 'GUARDADO LOCAL';
-            btn.classList.remove('bg-sena-green');
-            btn.classList.add('bg-yellow-600');
+            if (st) st.innerHTML = `<div class="text-yellow-700 bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm mt-2"><b>Modo Offline:</b> Datos guardados localmente (Simulación). En producción se enviaría al servidor.</div>`;
+
+            if (btn) {
+                btn.innerHTML = 'GUARDADO LOCAL';
+                btn.classList.remove('bg-sena-green');
+                btn.classList.add('bg-yellow-600');
+            }
         }
     }
 };
