@@ -1,0 +1,1376 @@
+{
+  "kolb": {
+    "title": "Identificación de Estilos de Aprendizaje - Modelo Kolb (SENA 2026)",
+    "instructions": "Para cada fila, ordene las opciones del 1 al 4. Asigne 4 a la opción que MEJOR lo describe y 1 a la que MENOS lo describe. No repita números en la misma fila.",
+    "validation": {
+      "type": "ranking_row",
+      "min": 1,
+      "max": 4,
+      "uniqueInfo": "No puede repetir valores en la misma fila"
+    },
+    "scoring": {
+      "formulas": {
+        "x": "CA - EC",
+        "y": "EA - OR"
+      },
+      "quadrants": [
+        {
+          "name": "Divergente",
+          "condition": "x <= 2 && y <= 2",
+          "description": "Creativo, empático, ve múltiples perspectivas."
+        },
+        {
+          "name": "Asimilador",
+          "condition": "x >= 3 && y <= 2",
+          "description": "Interés en modelos teóricos y lógica, no tanto en personas."
+        },
+        {
+          "name": "Convergente",
+          "condition": "x >= 3 && y >= 3",
+          "description": "Práctico, resuelve problemas técnicos y aplica teorías."
+        },
+        {
+          "name": "Acomodador",
+          "condition": "x <= 2 && y >= 3",
+          "description": "Pragmático, toma riesgos, se adapta a circunstancias."
+        }
+      ]
+    },
+    "styles": {
+      "EC": {
+        "name": "Experiencia Concreta",
+        "color": "text-blue-600",
+        "description": "Sentir"
+      },
+      "OR": {
+        "name": "Observación Reflexiva",
+        "color": "text-green-600",
+        "description": "Observar"
+      },
+      "CA": {
+        "name": "Conceptualización Abstracta",
+        "color": "text-yellow-600",
+        "description": "Pensar"
+      },
+      "EA": {
+        "name": "Experimentación Activa",
+        "color": "text-red-600",
+        "description": "Hacer"
+      }
+    },
+    "questions": [
+      {
+        "id": 1,
+        "options": [
+          {
+            "text": "Involucrándome",
+            "style": "EC"
+          },
+          {
+            "text": "Discerniendo",
+            "style": "OR"
+          },
+          {
+            "text": "Ensayando",
+            "style": "CA"
+          },
+          {
+            "text": "Practicando",
+            "style": "EA"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "options": [
+          {
+            "text": "Receptivamente",
+            "style": "EC"
+          },
+          {
+            "text": "Relacionando",
+            "style": "OR"
+          },
+          {
+            "text": "Analíticamente",
+            "style": "CA"
+          },
+          {
+            "text": "Imparcialmente",
+            "style": "EA"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "options": [
+          {
+            "text": "Sintiendo",
+            "style": "EC"
+          },
+          {
+            "text": "Observando",
+            "style": "OR"
+          },
+          {
+            "text": "Pensando",
+            "style": "CA"
+          },
+          {
+            "text": "Haciendo",
+            "style": "EA"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "options": [
+          {
+            "text": "Aceptando",
+            "style": "EC"
+          },
+          {
+            "text": "Tomando riesgos",
+            "style": "EA"
+          },
+          {
+            "text": "Evaluando",
+            "style": "CA"
+          },
+          {
+            "text": "Con cautela",
+            "style": "OR"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "options": [
+          {
+            "text": "Intuitivamente",
+            "style": "EC"
+          },
+          {
+            "text": "Productivamente",
+            "style": "OR"
+          },
+          {
+            "text": "Lógicamente",
+            "style": "CA"
+          },
+          {
+            "text": "Cuestionando",
+            "style": "EA"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "options": [
+          {
+            "text": "Abstracto",
+            "style": "CA"
+          },
+          {
+            "text": "Observando detalles",
+            "style": "OR"
+          },
+          {
+            "text": "Concreto",
+            "style": "EC"
+          },
+          {
+            "text": "Activo",
+            "style": "EA"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "options": [
+          {
+            "text": "Orientado al presente",
+            "style": "EC"
+          },
+          {
+            "text": "Reflexivo",
+            "style": "OR"
+          },
+          {
+            "text": "Orientado al futuro",
+            "style": "CA"
+          },
+          {
+            "text": "Pragmático",
+            "style": "EA"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "options": [
+          {
+            "text": "Aprendiendo de la experiencia",
+            "style": "EC"
+          },
+          {
+            "text": "Aprendiendo de la observación",
+            "style": "OR"
+          },
+          {
+            "text": "Aprendiendo de la concepción",
+            "style": "CA"
+          },
+          {
+            "text": "Diseñando formas de probar",
+            "style": "EA"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "options": [
+          {
+            "text": "Afectivamente",
+            "style": "EC"
+          },
+          {
+            "text": "Reservado",
+            "style": "OR"
+          },
+          {
+            "text": "Racional",
+            "style": "CA"
+          },
+          {
+            "text": "Abierto",
+            "style": "EA"
+          }
+        ]
+      }
+    ]
+  },
+  "chaea": {
+    "title": "Cuestionario CHAEA (SENA 2026)",
+    "instructions": "Lea atentamente cada frase. Si está más de acuerdo que en desacuerdo, marque 'De acuerdo'. Si está más en desacuerdo que de acuerdo, marque 'En desacuerdo'.",
+    "block": 4,
+    "response_options": [
+      {
+        "text": "De acuerdo",
+        "value": 1,
+        "icon": "👍",
+        "aria_label": "Estoy de acuerdo con esta afirmación",
+        "class": "bg-green-100 border-green-500 text-green-700"
+      },
+      {
+        "text": "En desacuerdo",
+        "value": 0,
+        "icon": "👎",
+        "aria_label": "No estoy de acuerdo con esta afirmación",
+        "class": "bg-red-100 border-red-500 text-red-700"
+      }
+    ],
+    "styles": {
+      "Activo": {
+        "name": "Activo",
+        "color": "text-orange-600",
+        "description": "Animador, improvisador, descubridor, arriesgado, espontáneo."
+      },
+      "Reflexivo": {
+        "name": "Reflexivo",
+        "color": "text-blue-600",
+        "description": "Ponderado, concienzudo, receptivo, analítico, exhaustivo."
+      },
+      "Teórico": {
+        "name": "Teórico",
+        "color": "text-purple-600",
+        "description": "Metódico, lógico, objetivo, crítico, estructurado."
+      },
+      "Pragmático": {
+        "name": "Pragmático",
+        "color": "text-emerald-600",
+        "description": "Experimentador, práctico, directo, eficaz, realista."
+      }
+    },
+    "questions": [
+      {
+        "id": 1,
+        "text": "Tengo fama de decir lo que pienso claramente y sin rodeos.",
+        "style": "Activo"
+      },
+      {
+        "id": 2,
+        "text": "Estoy seguro de lo que es bueno y lo que es malo, lo que está bien y lo que está mal.",
+        "style": "Teórico"
+      },
+      {
+        "id": 3,
+        "text": "Muchas veces actúo sin mirar las consecuencias.",
+        "style": "Activo"
+      },
+      {
+        "id": 4,
+        "text": "Normalmente trato de resolver los problemas con un método paso a paso.",
+        "style": "Teórico"
+      },
+      {
+        "id": 5,
+        "text": "Creo que el formalismo limita la actuación libre de las personas.",
+        "style": "Activo"
+      },
+      {
+        "id": 6,
+        "text": "Me interesa saber cuáles son los principios en que se basan las cosas.",
+        "style": "Teórico"
+      },
+      {
+        "id": 7,
+        "text": "Pienso que el actuar intuitivamente puede ser siempre tan válido como actuar reflexivamente.",
+        "style": "Activo"
+      },
+      {
+        "id": 8,
+        "text": "Creo que lo más importante es que las cosas funcionen.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 9,
+        "text": "Tengo en cuenta el más mínimo detalle antes de llegar a una conclusión.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 10,
+        "text": "Me gusta la espontaneidad y no tener que planificarlo todo previamente.",
+        "style": "Activo"
+      },
+      {
+        "id": 11,
+        "text": "Suelo ser una persona precavida que analiza los pasos a dar.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 12,
+        "text": "Me gusta probar nuevas formas de hacer las cosas para ver si funcionan.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 13,
+        "text": "Prefiero las ideas que son prácticas y útiles aquí y ahora.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 14,
+        "text": "Analizo detenidamente la información antes de emitir un juicio.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 15,
+        "text": "Me atrae el desafío de hacer algo nuevo y diferente.",
+        "style": "Activo"
+      },
+      {
+        "id": 16,
+        "text": "Prefiero las explicaciones lógicas y coherentes sobre las anécdotas.",
+        "style": "Teórico"
+      },
+      {
+        "id": 17,
+        "text": "Escucho con atención las opiniones de los demás antes de exponer la mía.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 18,
+        "text": "Prefiero que las cosas tengan una utilidad práctica inmediata.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 19,
+        "text": "Me gusta encontrar razones y argumentos sólidos para todo.",
+        "style": "Teórico"
+      },
+      {
+        "id": 20,
+        "text": "Me involucro con entusiasmo en los nuevos proyectos.",
+        "style": "Activo"
+      },
+      {
+        "id": 21,
+        "text": "En las discusiones me gusta ir directamente al grano sin rodeos.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 22,
+        "text": "Me gusta analizar y verificar bien los datos antes de tomar una decisión.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 23,
+        "text": "Pienso que los objetivos de lo que hago deben estar muy claros.",
+        "style": "Teórico"
+      },
+      {
+        "id": 24,
+        "text": "En las reuniones o trabajos en grupo, suelo aportar ideas nuevas y espontáneas.",
+        "style": "Activo"
+      },
+      {
+        "id": 25,
+        "text": "No me importa arriesgarme si el tema o el proyecto me interesa realmente.",
+        "style": "Activo"
+      },
+      {
+        "id": 26,
+        "text": "Me gusta considerar todas las alternativas posibles antes de actuar.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 27,
+        "text": "Prefiero los problemas que tienen una solución lógica y estructurada.",
+        "style": "Teórico"
+      },
+      {
+        "id": 28,
+        "text": "Disfruto cuando tengo que realizar una tarea con rapidez y eficacia.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 29,
+        "text": "Trato de que mi razonamiento sea siempre coherente y objetivo.",
+        "style": "Teórico"
+      },
+      {
+        "id": 30,
+        "text": "Prefiero observar cómo actúan los demás antes de intervenir yo mismo.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 31,
+        "text": "Me aburro rápidamente si tengo que leer o escuchar explicaciones muy largas.",
+        "style": "Activo"
+      },
+      {
+        "id": 32,
+        "text": "Me gusta planificar mis actividades y tareas con bastante antelación.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 33,
+        "text": "Suelo aplicar lo que aprendo en la práctica lo antes posible.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 34,
+        "text": "Considero que las normas y reglas están para ser seguidas rigurosamente.",
+        "style": "Teórico"
+      },
+      {
+        "id": 35,
+        "text": "Me gusta trabajar en equipo para intercambiar diferentes puntos de vista.",
+        "style": "Activo"
+      },
+      {
+        "id": 36,
+        "text": "Antes de actuar, prefiero pensar detenidamente en las consecuencias.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 37,
+        "text": "Me atraen las experiencias nuevas, aunque supongan cierto riesgo.",
+        "style": "Activo"
+      },
+      {
+        "id": 38,
+        "text": "Me gusta que los informes y explicaciones sean concisos y prácticos.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 39,
+        "text": "Siempre trato de encontrar la lógica y el porqué de lo que sucede.",
+        "style": "Teórico"
+      },
+      {
+        "id": 40,
+        "text": "Me gusta escuchar las opiniones de los demás antes de dar la mía.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 41,
+        "text": "Siento que las decisiones basadas en un análisis minucioso son más sólidas que las basadas en la intuición.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 42,
+        "text": "En mis estudios o trabajo, suelo buscar la lógica y la coherencia de las ideas.",
+        "style": "Teórico"
+      },
+      {
+        "id": 43,
+        "text": "Prefiero discutir cuestiones concretas y no perder el tiempo con charlas superficiales.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 44,
+        "text": "Pienso que los planes bien hechos no necesitan de cambios de última hora.",
+        "style": "Teórico"
+      },
+      {
+        "id": 45,
+        "text": "Me gusta comprobar personalmente si las cosas funcionan realmente.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 46,
+        "text": "Con frecuencia soy quien pone los puntos sobre las íes y busca la precisión en las discusiones.",
+        "style": "Teórico"
+      },
+      {
+        "id": 47,
+        "text": "Suelo notar y observar detenidamente las formas de actuar de mis compañeros.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 48,
+        "text": "Soy una persona que siempre trata de tener los pies en la tierra y ser realista.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 49,
+        "text": "Me gusta que los materiales de estudio o manuales técnicos tengan una base científica sólida.",
+        "style": "Teórico"
+      },
+      {
+        "id": 50,
+        "text": "Me aburro pronto si tengo que leer muchas instrucciones antes de empezar a hacer una práctica.",
+        "style": "Activo"
+      },
+      {
+        "id": 51,
+        "text": "Me gusta ser muy metódico y sistemático en la organización de mi trabajo.",
+        "style": "Teórico"
+      },
+      {
+        "id": 52,
+        "text": "Prefiero las actividades de formación en las que puedo ver un resultado claro y rápido.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 53,
+        "text": "Suelo observar y escuchar mucho antes de participar activamente en un debate.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 54,
+        "text": "Creo que las teorías e ideas no valen nada si no se pueden poner en práctica en el taller.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 55,
+        "text": "Disfruto cuando tengo que analizar un problema técnico desde diferentes puntos de vista.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 56,
+        "text": "Soy de los que les gusta hacer las cosas con calma, orden y sin prisas.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 57,
+        "text": "Me atrae la idea de experimentar y aprender herramientas nuevas continuamente.",
+        "style": "Activo"
+      },
+      {
+        "id": 58,
+        "text": "Prefiero los libros o tutoriales que tratan sobre hechos y datos reales que los de ficción.",
+        "style": "Teórico"
+      },
+      {
+        "id": 59,
+        "text": "Siento que cualquier teoría debe poder demostrarse con hechos concretos.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 60,
+        "text": "Me gusta mucho trabajar en proyectos grupales donde todos participen activamente.",
+        "style": "Activo"
+      },
+      {
+        "id": 61,
+        "text": "Disfruto siendo el protagonista y el centro de atención en las actividades grupales.",
+        "style": "Activo"
+      },
+      {
+        "id": 62,
+        "text": "Me gusta distanciarme de los hechos para observarlos con mayor perspectiva y objetividad.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 63,
+        "text": "Me gusta vivir experiencias emocionantes y nuevas, aunque supongan cierto riesgo.",
+        "style": "Activo"
+      },
+      {
+        "id": 64,
+        "text": "Pienso que la lógica y la objetividad son los factores más importantes para un aprendizaje sólido.",
+        "style": "Teórico"
+      },
+      {
+        "id": 65,
+        "text": "Prefiero reflexionar tranquilamente sobre lo que he hecho antes de iniciar una nueva tarea.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 66,
+        "text": "Me considero una persona creativa y espontánea cuando me enfrento a nuevos desafíos.",
+        "style": "Activo"
+      },
+      {
+        "id": 67,
+        "text": "Me siento incómodo cuando las instrucciones o los procesos no tienen un orden lógico claro.",
+        "style": "Teórico"
+      },
+      {
+        "id": 68,
+        "text": "Me gusta descubrir nuevas oportunidades de aprendizaje por mi propia cuenta e iniciativa.",
+        "style": "Activo"
+      },
+      {
+        "id": 69,
+        "text": "Me gusta analizar cuidadosamente la información proveniente de diferentes fuentes antes de concluir.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 70,
+        "text": "Prefiero los sistemas de pensamiento y modelos que están perfectamente estructurados.",
+        "style": "Teórico"
+      },
+      {
+        "id": 71,
+        "text": "Me gusta participar en lluvias de ideas donde se generen muchas opciones sin restricciones.",
+        "style": "Activo"
+      },
+      {
+        "id": 72,
+        "text": "Siempre trato de ser prudente y concienzudo antes de dar mi opinión en un debate.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 73,
+        "text": "Me gusta que las teorías y conceptos supongan un verdadero desafío para mi inteligencia.",
+        "style": "Teórico"
+      },
+      {
+        "id": 74,
+        "text": "Busco siempre la utilidad práctica e inmediata de cualquier conocimiento que me transmiten.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 75,
+        "text": "Prefiero observar una demostración técnica antes de intentar realizar la práctica yo mismo.",
+        "style": "Reflexivo"
+      },
+      {
+        "id": 76,
+        "text": "Me impaciento si noto que una técnica o concepto no se puede aplicar directamente al trabajo real.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 77,
+        "text": "Prefiero recibir consejos prácticos y directos que largas explicaciones teóricas.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 78,
+        "text": "Me gusta experimentar con nuevas herramientas y equipos en el taller o laboratorio.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 79,
+        "text": "Siento que el aprendizaje es mucho más real cuando puedo manipular objetos y prototipos.",
+        "style": "Pragmático"
+      },
+      {
+        "id": 80,
+        "text": "Me gusta resolver problemas técnicos siguiendo ejemplos prácticos y casos de éxito reales.",
+        "style": "Pragmático"
+      }
+    ]
+  },
+  "vak": {
+    "title": "Test de Percepción Sensorial VAK (SENA 2026)",
+    "description": "Identifica tu canal sensorial predominante para optimizar tu proceso de formación profesional integral.",
+    "instructions": "Para cada situación, elige la opción que mejor te represente. No hay respuestas correctas o incorrectas.",
+    "response_options": {
+      "type": "single_choice"
+    },
+    "styles": {
+      "Visual": {
+        "name": "Visual",
+        "color": "text-blue-500",
+        "icon": "👁️",
+        "description": "Aprende mejor con imágenes, diagramas y videos."
+      },
+      "Auditivo": {
+        "name": "Auditivo",
+        "color": "text-yellow-500",
+        "icon": "👂",
+        "description": "Aprende mejor escuchando explicaciones y debates."
+      },
+      "Kinestesico": {
+        "name": "Kinestésico",
+        "color": "text-red-500",
+        "icon": "🤚",
+        "description": "Aprende mejor haciendo, tocando y moviéndose."
+      }
+    },
+    "questions": [
+      {
+        "id": 1,
+        "text": "Cuando estás en clase y el instructor explica algo, ¿qué te ayuda más a entender?",
+        "options": [
+          {
+            "label": "Ver las diapositivas, esquemas o lo que escribe en el tablero.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar con atención su explicación y los ejemplos que da.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Realizar una práctica inmediata o manipular las herramientas del taller.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "text": "Cuando tienes que aprender un procedimiento técnico nuevo, prefieres:",
+        "options": [
+          {
+            "label": "Leer el manual de instrucciones o ver un video tutorial.",
+            "style": "Visual"
+          },
+          {
+            "label": "Que alguien te lo explique paso a paso verbalmente.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Intentar hacerlo tú mismo e ir probando hasta que funcione.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "text": "En tu tiempo libre, ¿cuál de estas actividades prefieres?",
+        "options": [
+          {
+            "label": "Leer un libro, ver una película o navegar por redes sociales.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar música, un podcast o conversar con amigos.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Hacer deporte, bailar o realizar algún trabajo manual.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "text": "Cuando tratas de recordar algo que aprendiste, ¿qué te viene a la mente primero?",
+        "options": [
+          {
+            "label": "Las imágenes, gráficos o la página del libro donde estaba.",
+            "style": "Visual"
+          },
+          {
+            "label": "Las palabras exactas o el tono de voz de quien lo dijo.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "La sensación de haberlo hecho o el movimiento que realizaste.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "text": "Si tienes que dar instrucciones a alguien para llegar a un lugar, tú:",
+        "options": [
+          {
+            "label": "Le dibujas un mapa o le das puntos de referencia visuales.",
+            "style": "Visual"
+          },
+          {
+            "label": "Le explicas verbalmente las calles y giros que debe tomar.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Lo acompañas un tramo o haces gestos con las manos para indicar el camino.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "text": "Cuando compras un equipo nuevo para el hogar o el trabajo, ¿qué haces primero?",
+        "options": [
+          {
+            "label": "Miras los dibujos y diagramas del manual.",
+            "style": "Visual"
+          },
+          {
+            "label": "Le preguntas a alguien que ya sepa cómo usarlo.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Lo conectas y empiezas a tocar los botones para ver qué pasa.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "text": "En una reunión de trabajo o estudio, lo que más te distrae es:",
+        "options": [
+          {
+            "label": "El desorden visual o que la gente pase por delante de ti.",
+            "style": "Visual"
+          },
+          {
+            "label": "Los ruidos de fondo, conversaciones ajenas o sonidos del exterior.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Tener que estar sentado mucho tiempo sin poder moverte.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "text": "Al estudiar para una evaluación, te resulta más fácil:",
+        "options": [
+          {
+            "label": "Hacer mapas mentales, subrayar con colores o usar flashcards.",
+            "style": "Visual"
+          },
+          {
+            "label": "Repetir la información en voz alta o discutirla con un compañero.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Escribir muchas veces los conceptos o hacer maquetas y modelos.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "text": "¿Cómo sabes si alguien te está prestando atención?",
+        "options": [
+          {
+            "label": "Porque te mira directamente a los ojos.",
+            "style": "Visual"
+          },
+          {
+            "label": "Porque hace sonidos de asentimiento como 'ah', 'entiendo'.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Porque se inclina hacia ti o busca algún contacto físico leve.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "text": "Si tienes que aprender a usar un nuevo software en el SENA, prefieres:",
+        "options": [
+          {
+            "label": "Ver una demostración en pantalla compartida.",
+            "style": "Visual"
+          },
+          {
+            "label": "Seguir las instrucciones que el instructor dicta por audio.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Tener el ratón en la mano y seguir los pasos mientras los haces.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "text": "Cuando estás aburrido en una charla larga, sueles:",
+        "options": [
+          {
+            "label": "Hacer dibujos o garabatos en tu cuaderno.",
+            "style": "Visual"
+          },
+          {
+            "label": "Hablar contigo mismo o tararear una canción mentalmente.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Mover las piernas, jugar con un lapicero o levantarte si puedes.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "text": "Para recordar la ortografía de una palabra difícil:",
+        "options": [
+          {
+            "label": "Tratas de ver la palabra escrita en tu mente.",
+            "style": "Visual"
+          },
+          {
+            "label": "La deletreas en voz alta para escuchar cómo suena.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "La escribes varias veces en un papel para sentir el movimiento.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "text": "Al elegir un regalo para alguien, te fijas principalmente en:",
+        "options": [
+          {
+            "label": "Que sea bonito y esté bien empacado.",
+            "style": "Visual"
+          },
+          {
+            "label": "Algo que sepas que la persona ha mencionado verbalmente.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Que sea útil, suave al tacto o práctico para usar.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "text": "Cuando vas a un restaurante nuevo, sueles elegir el plato:",
+        "options": [
+          {
+            "label": "Por las fotos que ves en la carta o en el menú.",
+            "style": "Visual"
+          },
+          {
+            "label": "Por la recomendación que te da el mesero oralmente.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Por el olor que sale de la cocina o por lo que ves comer a otros.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "text": "Tu mayor cualidad al trabajar en equipo es que eres:",
+        "options": [
+          {
+            "label": "Observador y detallista con los entregables finales.",
+            "style": "Visual"
+          },
+          {
+            "label": "Buen comunicador y sabes escuchar las ideas de todos.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Activo y siempre estás dispuesto a poner manos a la obra.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "text": "Cuando estás nervioso, lo que más te calma es:",
+        "options": [
+          {
+            "label": "Cerrar los ojos e imaginar un lugar tranquilo.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar música relajante o sonidos de la naturaleza.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Caminar, hacer estiramientos o masajearte las manos.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "text": "Al leer un reporte técnico, lo que más te ayuda es que tenga:",
+        "options": [
+          {
+            "label": "Gráficas de barras, tablas y resaltados en color.",
+            "style": "Visual"
+          },
+          {
+            "label": "Un lenguaje claro y explicaciones bien narradas.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Ejemplos prácticos que puedas aplicar de inmediato.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "text": "Cuando conoces a alguien nuevo, es más probable que recuerdes:",
+        "options": [
+          {
+            "label": "Su cara, pero no su nombre.",
+            "style": "Visual"
+          },
+          {
+            "label": "Su nombre, pero no su cara.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Lo que hicieron juntos o su apretón de manos.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "text": "En una exposición en el ambiente de formación, prefieres:",
+        "options": [
+          {
+            "label": "Que el ponente use un video o una presentación impactante.",
+            "style": "Visual"
+          },
+          {
+            "label": "Que el ponente hable con claridad y responda dudas.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Que haya una parte práctica donde los asistentes participen.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "text": "Cuando piensas en tus vacaciones ideales, te imaginas:",
+        "options": [
+          {
+            "label": "Los hermosos paisajes y lugares que vas a ver.",
+            "style": "Visual"
+          },
+          {
+            "label": "Los sonidos del mar, la música local o el silencio.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "La sensación del sol en la piel o el cansancio físico tras una caminata.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "text": "Cuando alguien te está dando instrucciones detalladas sobre un proyecto complejo, tú:",
+        "options": [
+          {
+            "label": "Tratas de visualizar los pasos en tu mente o pides que te los grafiquen.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchas atentamente y repites los puntos clave para confirmar.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Tomas nota rápidamente o empiezas a manipular los materiales mientras te hablan.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "text": "Al asistir a una conferencia en el auditorio del centro, lo que más te ayuda a concentrarte es:",
+        "options": [
+          {
+            "label": "Que el conferencista use una presentación visual impecable.",
+            "style": "Visual"
+          },
+          {
+            "label": "Que el conferencista tenga una voz clara, modulada y amena.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Que el conferencista haga dinámicas que requieran participación física.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "text": "Cuando estás describiendo un lugar que visitaste a tus compañeros, tú:",
+        "options": [
+          {
+            "label": "Te enfocas en los colores, las formas y lo que viste.",
+            "style": "Visual"
+          },
+          {
+            "label": "Te enfocas en los sonidos, las historias y lo que escuchaste.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Te enfocas en las sensaciones, el clima y lo que hiciste.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 24,
+        "text": "En una actividad de integración social, lo que más disfrutas es:",
+        "options": [
+          {
+            "label": "Observar el ambiente, la decoración y a las personas.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar música, conversar y los debates espontáneos.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Bailar, jugar o participar en actividades de movimiento.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "text": "Cuando te sientes muy feliz y emocionado, tú sueles:",
+        "options": [
+          {
+            "label": "Mostrarlo en tu expresión facial y brillo en los ojos.",
+            "style": "Visual"
+          },
+          {
+            "label": "Hablar mucho, reír a carcajadas o cantar.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Saltar, abrazar a alguien o mover mucho el cuerpo.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "text": "Al buscar información sobre un tema nuevo para tu formación, prefieres:",
+        "options": [
+          {
+            "label": "Buscar infografías, fotos y diagramas en internet.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar un audiolibro o una charla en YouTube/Spotify.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Buscar un kit de experimentación o una guía de 'hágalo usted mismo'.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "text": "Cuando estás esperando en una fila larga, tú sueles:",
+        "options": [
+          {
+            "label": "Observar todo lo que pasa a tu alrededor y mirar tu teléfono.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar música, podcast o hablar con la persona de al lado.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Moverte constantemente, cambiar de postura o caminar un poco.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "text": "Si visitas un museo o una feria tecnológica, lo que más te gusta es:",
+        "options": [
+          {
+            "label": "Ver las exhibiciones, los diseños y las luces.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar las audioguías o las explicaciones de los expertos.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Tocar los prototipos y usar las pantallas interactivas.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "text": "Cuando estás escuchando una clase virtual por Teams o Zoom, prefieres:",
+        "options": [
+          {
+            "label": "Que el instructor tenga su cámara encendida y comparta pantalla.",
+            "style": "Visual"
+          },
+          {
+            "label": "Que el audio sea nítido y se fomente la participación verbal.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Tener materiales a la mano para ir siguiendo la práctica en casa.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 30,
+        "text": "Al intentar resolver un acertijo o rompecabezas complicado:",
+        "options": [
+          {
+            "label": "Tratas de ver la imagen completa y cómo encajan las piezas visualmente.",
+            "style": "Visual"
+          },
+          {
+            "label": "Dices las posibles soluciones en voz alta para 'oír' si tienen sentido.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Empiezas a mover y probar las piezas físicamente de inmediato.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 31,
+        "text": "Cuando estás cansado de estudiar frente al computador, lo que más te relaja es:",
+        "options": [
+          {
+            "label": "Ver un video corto que no requiera mucho pensamiento.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar tu canción favorita con los ojos cerrados.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Darte un baño, salir a caminar o hacer un estiramiento.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 32,
+        "text": "Al aprender un nuevo idioma, te resulta más sencillo:",
+        "options": [
+          {
+            "label": "Ver películas con subtítulos y leer textos.",
+            "style": "Visual"
+          },
+          {
+            "label": "Escuchar grabaciones y practicar la pronunciación.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Usar gestos y actuar situaciones de la vida real.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "text": "En un centro comercial, te atrae principalmente:",
+        "options": [
+          {
+            "label": "Las vitrinas coloridas y la iluminación de las tiendas.",
+            "style": "Visual"
+          },
+          {
+            "label": "La música ambiental o los anuncios por los altavoces.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "La posibilidad de probarse la ropa o tocar los productos.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 34,
+        "text": "Cuando quieres contar una anécdota emocionante, tú:",
+        "options": [
+          {
+            "label": "Haces muchas señas y mueves los ojos para enfatizar.",
+            "style": "Visual"
+          },
+          {
+            "label": "Cambias el tono de voz y haces efectos de sonido con la boca.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Actúas la escena y te mueves por todo el espacio.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 35,
+        "text": "Si participas en un taller de formación técnica (ej. electricidad, cocina, sistemas), prefieres:",
+        "options": [
+          {
+            "label": "Ver primero el diagrama de conexiones o la receta escrita.",
+            "style": "Visual"
+          },
+          {
+            "label": "Que el instructor dé una charla introductoria sobre el proceso.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Tomar las herramientas y empezar el montaje/preparación.",
+            "style": "Kinestesico"
+          }
+        ]
+      },
+      {
+        "id": 36,
+        "text": "Para tomar una decisión importante en tu vida profesional, tú:",
+        "options": [
+          {
+            "label": "Haces una lista de pros y contras para verla claramente.",
+            "style": "Visual"
+          },
+          {
+            "label": "Lo hablas con alguien de confianza para escuchar sus consejos.",
+            "style": "Auditivo"
+          },
+          {
+            "label": "Te guías por lo que 'sientes' en el cuerpo sobre esa decisión.",
+            "style": "Kinestesico"
+          }
+        ]
+      }
+    ]
+  }
+}
