@@ -69,4 +69,10 @@ Este proyecto es de código abierto para la comunidad SENA.
 3.  Pull Request describiendo los cambios DUA o técnicos.
 
 ## 📄 Licencia
-Uso libre educativo bajo reconocimiento al autor. SENA - Regional Boyacá - Centro Minero - 2026
+Este proyecto está licenciado bajo la **GNU General Public License v3.0 (GPLv3)**.
+Cualquier uso, modificación o distribución del código requiere:
+1.  **Reconocimiento del Autor** (Mantener el copyright original).
+2.  **Mismo Licenciamiento** (Las obras derivadas deben ser también GPLv3).
+3.  **Código Abierto** (Si se distribuye el software, el código fuente debe estar disponible).
+
+Copyright © 2026 Daom-Projects - SENA Regional Boyacá
