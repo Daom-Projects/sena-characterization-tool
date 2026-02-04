@@ -75,4 +75,4 @@ Cualquier uso, modificación o distribución del código requiere:
 2.  **Mismo Licenciamiento** (Las obras derivadas deben ser también GPLv3).
 3.  **Código Abierto** (Si se distribuye el software, el código fuente debe estar disponible).
 
-Copyright © 2026 Daom-Projects - SENA Regional Boyacá
+Copyright © 2026 Diego Alonso Ojeda Medina - dojedam@sena.edu.co - SENA Regional Boyacá - Centro Minero
